@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0" camunda:diagramRelationId="362915ce-3f6f-4cec-b895-da1352309d1d">
+  <bpmn:process id="CaseAssignmentAutoProcess" name="Case Assignment Auto" isExecutable="true">
+    <bpmn:startEvent id="Event_17xq1mb">
+      <bpmn:outgoing>Flow_1fv0dd4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1fv0dd4" sourceRef="Event_17xq1mb" targetRef="Activity_11l4adl" />
+    <bpmn:exclusiveGateway id="Gateway_1xgpvjt" default="Flow_1gpji7w">
+      <bpmn:incoming>Flow_1wkt7d8</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gpji7w</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0h2h4yc</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1wkt7d8" sourceRef="Activity_11l4adl" targetRef="Gateway_1xgpvjt" />
+    <bpmn:sequenceFlow id="Flow_1gpji7w" sourceRef="Gateway_1xgpvjt" targetRef="Activity_0yezh6z" />
+    <bpmn:sequenceFlow id="Flow_0h2h4yc" sourceRef="Gateway_1xgpvjt" targetRef="Activity_0opfxy7">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${pathToGo}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Activity_0opfxy7" name="Tela 3">
+      <bpmn:incoming>Flow_0h2h4yc</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vgm6ul</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0yezh6z" name="Tela2">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="org.camunda.bpm.getstarted.loanapproval.listener.TaskListener1" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1gpji7w</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fuexu1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0d0h0bt">
+      <bpmn:incoming>Flow_0vgm6ul</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0vgm6ul" sourceRef="Activity_0opfxy7" targetRef="Event_0d0h0bt" />
+    <bpmn:endEvent id="Event_1t1l8l3">
+      <bpmn:incoming>Flow_0hvnhc0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_11l4adl" name="Tela 1" camunda:class="org.camunda.bpm.getstarted.loanapproval.delegate.TaskDelagate1">
+      <bpmn:incoming>Flow_1fv0dd4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wkt7d8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="Event_11lzoj1">
+      <bpmn:incoming>Flow_0fuexu1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hvnhc0</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1ugiin6">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P2M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_0fuexu1" sourceRef="Activity_0yezh6z" targetRef="Event_11lzoj1" />
+    <bpmn:sequenceFlow id="Flow_0hvnhc0" sourceRef="Event_11lzoj1" targetRef="Event_1t1l8l3" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CaseAssignmentAutoProcess">
+      <bpmndi:BPMNEdge id="Flow_1fv0dd4_di" bpmnElement="Flow_1fv0dd4">
+        <di:waypoint x="188" y="90" />
+        <di:waypoint x="240" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wkt7d8_di" bpmnElement="Flow_1wkt7d8">
+        <di:waypoint x="340" y="90" />
+        <di:waypoint x="395" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gpji7w_di" bpmnElement="Flow_1gpji7w">
+        <di:waypoint x="445" y="90" />
+        <di:waypoint x="500" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h2h4yc_di" bpmnElement="Flow_0h2h4yc">
+        <di:waypoint x="420" y="115" />
+        <di:waypoint x="420" y="200" />
+        <di:waypoint x="500" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vgm6ul_di" bpmnElement="Flow_0vgm6ul">
+        <di:waypoint x="600" y="200" />
+        <di:waypoint x="662" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fuexu1_di" bpmnElement="Flow_0fuexu1">
+        <di:waypoint x="600" y="90" />
+        <di:waypoint x="702" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hvnhc0_di" bpmnElement="Flow_0hvnhc0">
+        <di:waypoint x="738" y="90" />
+        <di:waypoint x="822" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_17xq1mb_di" bpmnElement="Event_17xq1mb">
+        <dc:Bounds x="152" y="72" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1xgpvjt_di" bpmnElement="Gateway_1xgpvjt" isMarkerVisible="true">
+        <dc:Bounds x="395" y="65" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vckaiv_di" bpmnElement="Activity_0opfxy7">
+        <dc:Bounds x="500" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tnrhj5_di" bpmnElement="Activity_0yezh6z">
+        <dc:Bounds x="500" y="50" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0d0h0bt_di" bpmnElement="Event_0d0h0bt">
+        <dc:Bounds x="662" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0scq9ch_di" bpmnElement="Activity_11l4adl">
+        <dc:Bounds x="240" y="50" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1t1l8l3_di" bpmnElement="Event_1t1l8l3">
+        <dc:Bounds x="822" y="72" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0g3c33w_di" bpmnElement="Event_11lzoj1">
+        <dc:Bounds x="702" y="72" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
